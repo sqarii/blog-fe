@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto";
+  height: 100vh;
 }
 
 .nav-links {
@@ -21,6 +22,7 @@ body {
 }
 
 ul {
+  padding: 0;
   width: 20%;
   display: flex;
   justify-content: space-between;
@@ -39,15 +41,15 @@ li {
 
 .main {
   width: 100%;
-  height: 200px;
+  max-height: 500px;
 }
 
 .posts {
   display: grid;
-
-  grid-template-columns: repeat(2, 2fr);
-  grid-template-rows: repeat(3, auto);
-  padding: 10rem;
+  max-height: 250px;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto;
+  padding: 2rem;
   gap: 1rem;
 }
 
@@ -63,6 +65,11 @@ li {
   grid-column: 1 / 2;
   grid-row: 1 / 4;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .post-1,
@@ -133,4 +140,50 @@ li {
   background-color: #ccc;
   border-radius: 50%;
   display: inline-block;
+}
+
+/* LOGIN */
+
+.forms {
+  display: flex;
+  width: 20%;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2px;
+}
+
+.log-btns {
+  font-family: "Roboto";
+  border: 0;
+  background-color: white;
+  padding: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+input {
+  border: 1px solid #d6d3d3;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.login-btn {
+  padding: 0.5rem;
+  background-color: black;
+  border-radius: 0.5rem;
+  color: white;
+  font-family: "Roboto";
+  border: 0;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.login-btn:hover {
+  background-color: #aaa;
 }

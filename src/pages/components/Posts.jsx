@@ -4,28 +4,24 @@ const posts = [
     image:
       "https://i.pinimg.com/736x/e5/b9/81/e5b98110fcd62d6ebe0e636262170175.jpg",
     title: "Pierwszy post",
-    content: "To jest opis pierwszego posta.",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque sem et elit venenatis faucibus. Aliquam lobortis convallis imperdiet. Suspendisse consequat semper nisl, nec faucibus lorem dictum aliquet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse cursus, neque ut congue convallis, ipsum ante sagittis leo, eu placerat massa quam ut leo. Etiam mollis et ex nec sagittis",
   },
   {
     id: 2,
     image:
       "https://i.pinimg.com/736x/e5/b9/81/e5b98110fcd62d6ebe0e636262170175.jpg",
     title: "Drugi post",
-    description: "To jest opis drugiego posta.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque sem et elit venenatis faucibus. Aliquam lobortis convallis imperdiet. Suspendisse consequat semper nisl, nec faucibus lorem dictum aliquet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse cursus, neque ut congue convallis, ipsum ante sagittis leo, eu placerat massa quam ut leo. Etiam mollis et ex nec sagittis",
   },
   {
     id: 3,
     image:
       "https://i.pinimg.com/736x/e5/b9/81/e5b98110fcd62d6ebe0e636262170175.jpg",
     title: "Trzeci post",
-    description: "To jest opis trzeciego posta.",
-  },
-  {
-    id: 4,
-    image:
-      "https://i.pinimg.com/736x/e5/b9/81/e5b98110fcd62d6ebe0e636262170175.jpg",
-    title: "Czwarty post",
-    description: "To jest opis czwartego posta.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque sem et elit venenatis faucibus. Aliquam lobortis convallis imperdiet. Suspendisse consequat semper nisl, nec faucibus lorem dictum aliquet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse cursus, neque ut congue convallis, ipsum ante sagittis leo, eu placerat massa quam ut leo. Etiam mollis et ex nec sagittis",
   },
 ];
 

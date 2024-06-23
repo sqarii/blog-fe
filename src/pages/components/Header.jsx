@@ -1,3 +1,6 @@
+import { Form } from "react-router-dom";
+import HeaderForm from "./HeaderForm";
+
 function Header() {
   return (
     <header className="nav-links">
@@ -13,17 +16,7 @@ function Header() {
         </li>
       </ul>
       <h2>Blog</h2>
-      <ul>
-        <li>
-          <a href="">fb</a>
-        </li>
-        <li>
-          <a href="">ig</a>
-        </li>
-        <li>
-          <a href="">twitter</a>
-        </li>
-      </ul>
+      <HeaderForm />
     </header>
   );
 }
