@@ -1,11 +1,11 @@
-import Posts from "./Posts";
+// import Posts from "./Posts";
 
-function Main() {
-  return (
-    <div className="main">
-      <Posts />
-    </div>
-  );
-}
+// function Main() {
+//   return (
+//     <div className="main">
+//       <Posts />
+//     </div>
+//   );
+// }
 
-export default Main;
+// export default Main;

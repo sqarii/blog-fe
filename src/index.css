@@ -1,24 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playwrite+TZ:wght@100..400&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
 body {
   margin: 0;
   padding: 0;
   font-family: "Roboto";
   height: 100vh;
+  background-color: #fffcf2;
 }
 
 .nav-links {
   display: flex;
   justify-content: space-around;
-  width: 100vw;
+  width: 100%;
   height: 100%;
 }
 
 .nav-links h2 {
   padding: 15px;
-  font-size: 3rem;
-  font-family: "Playwrite TZ", cursive;
+  font-size: 4rem;
+  font-family: "Dancing Script";
 }
 
 ul {
@@ -36,20 +37,20 @@ li {
 
 .nav-links a {
   text-decoration: none;
-  color: black;
-}
-
-.main {
-  width: 100%;
-  max-height: 500px;
+  color: #252422;
+  font-family: "Roboto";
+  font-weight: 400;
 }
 
 .posts {
   display: grid;
   max-height: 250px;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-  padding: 2rem;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+    "posts0 posts1"
+    "posts2 posts3";
+  padding: 10rem;
   gap: 1rem;
 }
 
@@ -62,32 +63,18 @@ li {
 }
 
 .post-0 {
-  grid-column: 1 / 2;
-  grid-row: 1 / 4;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.post-1,
-.post-2,
-.post-3 {
-  grid-column: 2 / 3;
+  grid-area: posts0;
 }
 
 .post-1 {
-  grid-row: 1 / 2;
+  grid-area: posts1;
 }
 
 .post-2 {
-  grid-row: 2 / 3;
+  grid-area: posts2;
 }
-
-.post-3 {
-  grid-row: 3 / 4;
+.posts3 {
+  grid-area: posts3;
 }
 
 /* SINGLE POST  */
@@ -155,7 +142,7 @@ li {
 .log-btns {
   font-family: "Roboto";
   border: 0;
-  background-color: white;
+  background-color: #fffcf2;
   padding: 1rem;
   cursor: pointer;
   margin-top: 1rem;
@@ -186,4 +173,44 @@ input {
 
 .login-btn:hover {
   background-color: #aaa;
+}
+
+/* CREATE POST */
+.create {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc5b9;
+  border-radius: 1rem;
+  color: #252422;
+}
+
+#postForm {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.submit-post {
+  padding: 1.2rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  background-color: #403d39;
+  border-radius: 0.5rem;
+  color: #fffcf2;
+  font-family: "Roboto";
+  border: 0;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+#postForm input,
+textarea {
+  background-color: #ccc5b9;
+  padding: 1rem;
+  border: 1px solid #fffcf2;
 }
