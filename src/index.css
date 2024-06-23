@@ -13,6 +13,12 @@ body {
   width: 100vw;
   height: 120px;
 }
+.nav-links {
+  h2 {
+    margin: 0;
+    text-align: center;
+  }
+}
 ul {
   width: 20%;
   display: flex;
@@ -38,4 +44,11 @@ li {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
   padding: 100px;
+  gap: 10px;
+}
+
+.post-1 {
+  grid-column: 1 / 1;
+  grid-row: 1 / 4;
+  width: 100%;
 }

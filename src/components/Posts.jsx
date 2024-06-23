@@ -17,13 +17,19 @@ const posts = [
     title: "Trzeci post",
     description: "To jest opis trzeciego posta.",
   },
+  {
+    id: 4,
+    image: "https://example.com/image3.jpg",
+    title: "Czwarty post",
+    description: "To jest opis czwartego posta.",
+  },
 ];
 
 function Posts() {
   return (
     <div className="posts">
-      {posts.map(post => (
-        <div key={post.id} className="post">
+      {posts.map((post, i) => (
+        <div key={post.id} className={`post-${i}`}>
           <img src={post.image} alt={post.title} />
           <h2>{post.title}</h2>
           <p>{post.description}</p>
