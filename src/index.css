@@ -13,12 +13,7 @@ body {
   width: 100vw;
   height: 120px;
 }
-.nav-links {
-  h2 {
-    margin: 0;
-    text-align: center;
-  }
-}
+
 ul {
   width: 20%;
   display: flex;
@@ -43,7 +38,7 @@ li {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  padding: 100px;
+  padding: 200px;
   gap: 10px;
 }
 
