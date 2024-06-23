@@ -12,7 +12,7 @@ function Header() {
           <a href="#">KONTAKT</a>
         </li>
       </ul>
-      <h2>BLOG</h2>
+      <h2>Blog</h2>
       <ul>
         <li>
           <a href="">fb</a>
