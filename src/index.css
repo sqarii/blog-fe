@@ -47,7 +47,7 @@ li {
 .posts {
   display: grid;
   max-height: 250px;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
   padding: 2rem;
   gap: 1rem;
