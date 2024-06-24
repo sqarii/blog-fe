@@ -22,7 +22,6 @@ function Posts() {
         posts.map((post, i) => (
           <div key={post.id} className={`post`}>
             <img src={post.image} alt={post.title} />
-
             <h2>{post.title}</h2>
             <p>{post.content}</p>
             <Link to={`/post/${post.id}`}>Czytaj dalej</Link>

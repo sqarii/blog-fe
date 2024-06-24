@@ -1,14 +1,17 @@
+import React, { useEffect, useState } from "react";
+
 import Header from "./components/Header";
 import Main from "./components/Main";
-import "../index";
 import CreatePost from "./components/CreatePost";
 import Posts from "./components/Posts";
 
 function App() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
   return (
     <div className="App">
       <Header />
-      <CreatePost />
+      {isAdmin && <CreatePost />}
       <Posts />
     </div>
   );

@@ -30,14 +30,12 @@ function Login() {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        if (data) {
-          // set cookie for logged user
-          console.log("cookie");
-          document.cookie = `loggedInUser=${loginData.username}; path=/`;
+        if (data.success) {
+          document.cookie = `loggedInUser=${data.user.username}; role=${data.user.role}; path=/`;
 
-          alert(
-            "Witaj " + loginData.username + ", logowanie przebiegło pomyślnie"
-          );
+          alert(`Witaj ${data.user.username}, logowanie przebiegło pomyślnie`);
+        } else {
+          alert(data.message);
         }
       })
       .catch(error => console.error("Error:", error));
@@ -52,6 +50,7 @@ function Login() {
         <button onClick={handleLogin} className="log-btns">
           LOGIN
         </button>
+
         {active ? (
           <form id="form" onSubmit={login}>
             <input
@@ -63,6 +62,7 @@ function Login() {
               onChange={handleChange("username")}
               required
             />
+
             <input
               type="password"
               id="loginPassword"
@@ -72,6 +72,7 @@ function Login() {
               onChange={handleChange("password")}
               required
             />
+
             <button className="login-btn" type="submit">
               Login
             </button>
@@ -83,5 +84,4 @@ function Login() {
     </>
   );
 }
-
 export default Login;
