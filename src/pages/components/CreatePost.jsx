@@ -1,105 +1,103 @@
-// Importowanie potrzebnych funkcji z biblioteki React
+// Importowanie potrzebnych funkcji i komponentów z biblioteki React
 import React, { useEffect, useState } from "react";
 
-// Definiowanie komponentu CreatePost, który przyjmuje właściwości (props)
+// Definiowanie komponentu CreatePost, który przyjmuje props jako argument
 const CreatePost = (props) => {
-    // Definiowanie stanu komponentu, który będzie przechowywał dane nowego posta
+    // Używanie hooka useState do zarządzania stanem nowego posta
     const [newPost, setNewPost] = useState({
         title: "", // Tytuł posta
         content: "", // Treść posta
-        image: "", // URL obrazu do posta
-        author_id: sessionStorage.getItem("user_id") || "", // ID autora pobrane z sessionStorage
+        image: "", // URL obrazka
+        author_id: sessionStorage.getItem("user_id") || "", // ID autora pobierane z sessionStorage lub pusty string
     });
 
-    // Funkcja obsługująca zmianę wartości w polach formularza
+    // Funkcja obsługująca zmiany w polach formularza
     const handleChange = (e) => {
-        const { name, value } = e.target; // Pobranie nazwy i wartości zmienianego pola
+        const { name, value } = e.target; // Pobieranie nazwy i wartości zmienianego pola
         setNewPost({
-            ...newPost, // Rozpakowanie obecnego stanu (skopiowanie wszystkich właściwości)
-            [name]: value, // Zaktualizowanie konkretnej właściwości nową wartością
+            ...newPost, // Kopiowanie istniejącego stanu
+            [name]: value, // Aktualizowanie odpowiedniego pola
         });
     };
 
-    // Funkcja do tworzenia lub aktualizowania posta po wysłaniu formularza
+    // Funkcja obsługująca wysyłanie formularza
     const createPostData = (e) => {
-        e.preventDefault(); // Zapobiega domyślnej akcji przeglądarki, czyli przeładowaniu strony
+        e.preventDefault(); // Zapobieganie domyślnej akcji formularza
 
-        // Ustalanie URL na podstawie tego, czy edytujemy post
-        const url = props.editId
-            ? `https://jasowiczblog.000webhostapp.com/api.php?resource=posts&id=${props.editId}`
-            : `https://jasowiczblog.000webhostapp.com/api.php?resource=posts`;
-
-        // Ustalanie metody HTTP (PUT dla aktualizacji, POST dla tworzenia)
-        const method = props.editId ? "PUT" : "POST";
-
-        // Wysłanie żądania do API z odpowiednimi danymi
-        fetch(url, {
-            method: method, // Używana metoda HTTP
+        // Wysyłanie danych posta do API
+        fetch("https://jasowiczblog.000webhostapp.com/api.php?resource=posts", {
+            method: "POST", // Metoda HTTP POST
             headers: {
-                "Content-Type": "application/json", // Nagłówek informujący o typie danych
+                "Content-Type": "application/json", // Nagłówek informujący o formacie JSON
+                "Content-Type":
+                    "application/x-www-form-urlencoded; charset=UTF-8", // Nagłówek informujący o formacie URL-encoded
             },
-            body: JSON.stringify(newPost), // Konwersja danych nowego posta do formatu JSON
+            body: JSON.stringify(newPost), // Konwertowanie danych posta do formatu JSON
         })
-            .then((response) => response.json()) // Konwersja odpowiedzi z serwera do formatu JSON
-            .then((res) => {
-                console.log("Post successfully saved:", res); // Logowanie wyniku
-                // Tutaj możemy dodać dodatkową logikę po zapisaniu posta, np. przekierowanie
+            .then((response) => response.json()) // Konwersja odpowiedzi do formatu JSON
+            .then((data) => {
+                alert(data.message); // Wyświetlanie komunikatu z odpowiedzi API
+                window.location.reload(); // Przeładowanie strony
             })
             .catch((error) => console.error("Error:", error)); // Obsługa błędów
     };
 
-    // Efekt boczny, który pobiera dane posta do edycji, jeśli jest dostępne editId
+    // Efekt uboczny wykonywany po załadowaniu komponentu lub zmianie props.editId
     useEffect(() => {
         if (props.editId) {
+            // Pobieranie danych posta do edycji z API
             fetch(
                 `https://jasowiczblog.000webhostapp.com/api.php?resource=posts&id=${props.editId}`
             )
-                .then((response) => response.json()) // Konwersja odpowiedzi z serwera do formatu JSON
+                .then((response) => response.json()) // Konwersja odpowiedzi do formatu JSON
                 .then((res) => {
+                    // Ustawienie stanu nowego posta na podstawie odpowiedzi API
                     setNewPost({
-                        title: res.title, // Ustawienie tytułu pobranego posta
-                        content: res.content, // Ustawienie treści pobranego posta
-                        image: res.image, // Ustawienie URL obrazu pobranego posta
-                        author_id: res.author_id, // Ustawienie ID autora pobranego posta
+                        title: res.title, // Tytuł posta
+                        content: res.content, // Treść posta
+                        image: res.image, // URL obrazka
+                        author_id: res.author_id, // ID autora
                     });
                 })
                 .catch((error) => console.error("Błąd:", error)); // Obsługa błędów
         }
-    }, [props.editId]); // Efekt boczy czyli troche bradziej zaawansowana petla wykona sie tylko gdy props.editId ulegnie zmianie
+    }, [props.editId]); // Efekt uboczny zależny od props.editId
 
-    // Renderowanie formularza do tworzenia lub edycji posta
+    // Renderowanie komponentu
     return (
         <div className="create">
-            <h2>Create Post</h2> {/* Nagłówek formularza */}
+            <h2>Create Post</h2> {/* Nagłówek */}
             <form id="postForm" onSubmit={createPostData}>
+                {" "}
+                {/* Formularz */}
                 <input
-                    type="text" // Typ pola input to tekst
-                    id="title" // Unikalny identyfikator pola
-                    name="title" // Nazwa pola, używana w handleChange
-                    placeholder="Title" // Tekst widoczny, gdy pole jest puste
-                    value={newPost.title} // Aktualna wartość pola, pobierana ze stanu
-                    onChange={handleChange} // Funkcja wywoływana przy zmianie wartości pola
-                    required // Pole jest wymagane
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Title"
+                    value={newPost.title}
+                    onChange={handleChange}
+                    required
                 />
                 <textarea
-                    id="content" // Unikalny identyfikator pola
-                    name="content" // Nazwa pola, używana w handleChange
-                    placeholder="Content" // Tekst widoczny, gdy pole jest puste
-                    value={newPost.content} // Aktualna wartość pola, pobierana ze stanu
-                    onChange={handleChange} // Funkcja wywoływana przy zmianie wartości pola
-                    required // Pole jest wymagane
+                    id="content"
+                    name="content"
+                    placeholder="Content"
+                    value={newPost.content}
+                    onChange={handleChange}
+                    required
                 ></textarea>
                 <input
-                    type="text" // Typ pola input to tekst
-                    id="image" // Unikalny identyfikator pola
-                    name="image" // Nazwa pola, używana w handleChange
-                    placeholder="Image URL" // Tekst widoczny, gdy pole jest puste
-                    value={newPost.image} // Aktualna wartość pola, pobierana ze stanu
-                    onChange={handleChange} // Funkcja wywoływana przy zmianie wartości pola
+                    type="text"
+                    id="image"
+                    name="image"
+                    placeholder="Image URL"
+                    value={newPost.image}
+                    onChange={handleChange}
                 />
                 <button className="submit-post" type="submit">
                     {props.editId ? "Update Post" : "Create Post"}{" "}
-                    {/* Tekst przycisku zależny od trybu */}
+                    {/* Przycisk do wysyłania formularza */}
                 </button>
             </form>
         </div>
