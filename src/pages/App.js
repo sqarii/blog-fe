@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import Header from "./components/Header";
-import Main from "./components/Main";
 import CreatePost from "./components/CreatePost";
 import Posts from "./components/Posts";
 
-function App() {
+const App = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [username, setUsername] = useState("");
+    const [editId, setEditId] = useState(null);
 
     useEffect(() => {
         const getCookie = (name) => {
@@ -33,13 +33,22 @@ function App() {
         console.log("Username:", username);
     }, []);
 
+    const getLoginStatus = (status) => {
+        if (!status) setIsAdmin(false);
+    };
+
+    const getPostId = (id) => {
+        // console.log(id);
+        setEditId(id);
+    };
+
     return (
         <div className="App">
-            <Header />
-            {isAdmin && <CreatePost />}
-            <Posts />
+            <Header getLoginStatus={getLoginStatus} />
+            {isAdmin && <CreatePost editId={editId} />}
+            <Posts getPostId={getPostId} />
         </div>
     );
-}
+};
 
 export default App;

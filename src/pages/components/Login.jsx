@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-function Login(props) {
-    const [active, setIsActive] = useState(false);
+function Login() {
     const [loginData, setLoginData] = useState({
         username: "",
         password: "",
@@ -23,24 +22,27 @@ function Login(props) {
         sessionStorage.setItem("username", [data.username]);
         sessionStorage.setItem("password", [data.password]);
 
-        fetch("http://127.0.0.1/blog-be/api.php?resource=users&action=login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Content-Type":
-                    "application/x-www-form-urlencoded; charset=UTF-8",
-            },
-            body: JSON.stringify(data),
-        })
+        fetch(
+            "https://jasowiczblog.000webhostapp.com/api.php?resource=users&action=login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Content-Type":
+                        "application/x-www-form-urlencoded; charset=UTF-8",
+                },
+                body: JSON.stringify(data),
+            }
+        )
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
                 if (data) {
-                    //save username and role to cookies
-                    //to delete cookies close the browser
-                    document.cookie = `role=${data.user.role}; path=/`;
-                    document.cookie = `username=${data.user.username}; path=/`;
+                    //zapisuje nazwe i role uzytkownika w ciasteczkach
+                    document.cookie = `role=${data.user.role};`;
+                    document.cookie = `username=${data.user.username};`;
 
+                    //przechowuje id uzytkownika w sessionStorage (pamiec przegladarki resetowana po zamknieciu)
                     sessionStorage.setItem("user_id", [data.user.id]);
 
                     alert(
@@ -53,48 +55,35 @@ function Login(props) {
             })
             .catch((error) => console.error("Error:", error));
     };
-    const handleLogin = () => {
-        setIsActive(!active);
-    };
 
     return (
-        <>
-            <div className="login">
-                <button onClick={handleLogin} className="log-btns">
-                    LOGIN
+        <div className="login form-cont">
+            <form id="form" onSubmit={login}>
+                <input
+                    type="text"
+                    id="loginUsername"
+                    placeholder="Username"
+                    name="username"
+                    value={loginData.username}
+                    onChange={handleChange("username")}
+                    required
+                />
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Password"
+                    name="password"
+                    value={loginData.password}
+                    onChange={handleChange("password")}
+                    required
+                />
+
+                <button className="login-btn" type="submit">
+                    Login
                 </button>
-
-                {active ? (
-                    <form id="form" onSubmit={login}>
-                        <input
-                            type="text"
-                            id="loginUsername"
-                            placeholder="Username"
-                            name="username"
-                            value={loginData.username}
-                            onChange={handleChange("username")}
-                            required
-                        />
-
-                        <input
-                            type="password"
-                            id="loginPassword"
-                            placeholder="Password"
-                            name="password"
-                            value={loginData.password}
-                            onChange={handleChange("password")}
-                            required
-                        />
-
-                        <button className="login-btn" type="submit">
-                            Login
-                        </button>
-                    </form>
-                ) : (
-                    ""
-                )}
-            </div>
-        </>
+            </form>
+        </div>
     );
 }
 export default Login;

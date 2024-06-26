@@ -1,87 +1,102 @@
+// Importowanie potrzebnych funkcji i komponentów z bibliotek React i React Router
 import React, { useEffect, useState } from "react";
-import Header from "./components/Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Importowanie komponentu FontAwesomeIcon
 import {
-  faAngleDoubleRight,
-  faAngleDoubleLeft,
-} from "@fortawesome/free-solid-svg-icons";
-import { useParams, Link, useNavigate } from "react-router-dom";
+    faAngleDoubleRight,
+    faAngleDoubleLeft,
+    faAngleLeft,
+} from "@fortawesome/free-solid-svg-icons"; // Importowanie ikon z Font Awesome
+import { useParams, Link, useNavigate } from "react-router-dom"; // Importowanie funkcji i komponentów z React Router
 
+// Definiowanie komponentu SinglePost
 const SinglePost = () => {
-  const slug = useParams();
-  const navigate = useNavigate();
+    const slug = useParams(); // Pobieranie parametrów z URL, np. ID posta
+    const navigate = useNavigate(); // Funkcja do nawigacji w aplikacji
 
-  const [post, setPost] = useState([
-    {
-      author_id: 1,
-      author_name: "sqari",
-      content: "aiusiufgiu aigfiugaiufgiuag aisufaiufg",
-      created_at: "2024-06-24 00:25:31",
-      id: 3,
-      image:
-        "https://res.cloudinary.com/practicaldev/image/fetch/s--dbm8BrWp--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5e8otrwlfo71smasf6pz.png",
-      title: "title 3 title",
-      updated_at: "2024-06-24 00:25:31",
-    },
-  ]);
+    const [post, setPost] = useState([]); // Definiowanie stanu dla posta, początkowo pusta tablica
 
-  // useEffect(() => {
-  //   fetch(`http://127.0.0.1/blog-be/api.php?resource=posts&id=${slug.id}`)
-  //     .then(response => response.json())
-  //     .then(res => setPost([res]))
-  //     .catch(error => console.error("Błąd:", error));
-  // }, []);
+    // Efekt boczny do pobierania danych posta z API
+    useEffect(() => {
+        fetch(
+            `https://jasowiczblog.000webhostapp.com/api.php?resource=posts&id=${slug.id}`
+        )
+            .then((response) => response.json()) // Konwersja odpowiedzi z serwera do formatu JSON
+            .then((res) => setPost([res])) // Ustawienie stanu posta
+            .catch((error) => console.error("Błąd:", error)); // Obsługa błędów
+    }, []);
 
-  return (
-    <>
-      <Header />
-      <section className="singlepost">
-        <section className="singlepost-wrap">
-          {post.length &&
-            post.map(data => (
-              <span key={data.id}>
-                <h1 className="singlepost-title">{data.title}</h1>
-                <small className="singlepost-info">
-                  <span className="singlepost-author">
-                    autor: {data.author_name}
-                  </span>
-                  <span className="dot"></span>
-                  <span className="singlepost-date">{data.updated_at}</span>
-                </small>
-                <img
-                  src={data.image}
-                  alt="image"
-                  className="singlepost-image"
-                />
-                <section className="singlepost-content">{data.content}</section>
-              </span>
-            ))}
-        </section>
-        <section className="singlepost-nav">
-          <button
-            onClick={() => {
-              console.log(slug.id);
-              let newSlug = parseInt(slug.id) - 1;
-              navigate(`/post/${newSlug}`);
-              window.location.reload();
-            }}
-          >
-            <FontAwesomeIcon icon={faAngleDoubleLeft} />
-          </button>
-          <button
-            onClick={() => {
-              console.log(slug.id);
-              let newSlug = parseInt(slug.id) + 1;
-              navigate(`/post/${newSlug}`);
-              window.location.reload();
-            }}
-          >
-            <FontAwesomeIcon icon={faAngleDoubleRight} />
-          </button>
-        </section>
-      </section>
-    </>
-  );
+    // Renderowanie komponentu
+    return (
+        <>
+            <section className="singlepost">
+                <section className="singlepost-wrap">
+                    <button
+                        className="
+                    login-btn prev-btn"
+                        onClick={() => navigate("/")}
+                    >
+                        <FontAwesomeIcon icon={faAngleLeft} />{" "}
+                        {/* Ikona strzałki w lewo */}
+                    </button>
+                    {post.length &&
+                        post.map((data) => (
+                            <span key={data.id}>
+                                <h1 className="singlepost-title">
+                                    {data.title}{" "}
+                                    {/* Wyświetlanie tytułu posta */}
+                                </h1>
+                                <small className="singlepost-info">
+                                    <span className="singlepost-author">
+                                        autor: {data.author_name}{" "}
+                                        {/* Wyświetlanie autora posta */}
+                                    </span>
+                                    <span className="dot"></span>
+                                    <span className="singlepost-date">
+                                        {data.updated_at}{" "}
+                                        {/* Wyświetlanie daty aktualizacji posta */}
+                                    </span>
+                                </small>
+                                <img
+                                    src={data.image}
+                                    alt="image"
+                                    className="singlepost-image"
+                                />{" "}
+                                {/* Wyświetlanie obrazu posta */}
+                                <section className="singlepost-content">
+                                    {data.content}{" "}
+                                    {/* Wyświetlanie treści posta */}
+                                </section>
+                            </span>
+                        ))}
+                </section>
+                <section className="singlepost-nav">
+                    <button
+                        onClick={() => {
+                            console.log(slug.id); // Wyświetlanie ID posta w konsoli
+                            let newSlug = parseInt(slug.id) - 1; // Przejście do poprzedniego posta
+                            navigate(`/post/${newSlug}`);
+                            window.location.reload(); // Przeładowanie strony
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faAngleDoubleLeft} />{" "}
+                        {/* Ikona podwójnej strzałki w lewo */}
+                    </button>
+                    <button
+                        onClick={() => {
+                            console.log(slug.id); // Wyświetlanie ID posta w konsoli
+                            let newSlug = parseInt(slug.id) + 1; // Przejście do następnego posta
+                            navigate(`/post/${newSlug}`);
+                            window.location.reload(); // Przeładowanie strony
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faAngleDoubleRight} />{" "}
+                        {/* Ikona podwójnej strzałki w prawo */}
+                    </button>
+                </section>
+            </section>
+        </>
+    );
 };
 
+// Eksportowanie komponentu SinglePost, aby mógł być używany w innych częściach aplikacji
 export default SinglePost;
