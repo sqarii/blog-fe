@@ -26,6 +26,22 @@ const Header = (props) => {
 
             setIsLogged(false);
 
+            // przekazanie funkcji logout do backend
+            fetch(
+                "https://jasowiczblog.000webhostapp.com/api.php?resource=users&action=logout",
+                {
+                    method: "POST", // Metoda POST, aby wywołać akcję wylogowania
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Content-Type":
+                            "application/x-www-form-urlencoded; charset=UTF-8",
+                    },
+                }
+            )
+                .then((response) => response.json())
+                .then((data) => console.log(data))
+                .catch((error) => console.error("Error:", error));
+
             // przekazanie aktualnego statusu o logowaniu do pliku APP.js
             props.getLoginStatus(false);
         });
