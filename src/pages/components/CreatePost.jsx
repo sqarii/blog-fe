@@ -42,27 +42,6 @@ const CreatePost = (props) => {
             .catch((error) => console.error("Error:", error)); // Obsługa błędów
     };
 
-    // Efekt uboczny wykonywany po załadowaniu komponentu lub zmianie props.editId
-    useEffect(() => {
-        if (props.editId) {
-            // Pobieranie danych posta do edycji z API
-            fetch(
-                `https://jasowiczblog.000webhostapp.com/api.php?resource=posts&id=${props.editId}`
-            )
-                .then((response) => response.json()) // Konwersja odpowiedzi do formatu JSON
-                .then((res) => {
-                    // Ustawienie stanu nowego posta na podstawie odpowiedzi API
-                    setNewPost({
-                        title: res.title, // Tytuł posta
-                        content: res.content, // Treść posta
-                        image: res.image, // URL obrazka
-                        author_id: res.author_id, // ID autora
-                    });
-                })
-                .catch((error) => console.error("Błąd:", error)); // Obsługa błędów
-        }
-    }, [props.editId]); // Efekt uboczny zależny od props.editId
-
     // Renderowanie komponentu
     return (
         <div className="create">
@@ -96,7 +75,7 @@ const CreatePost = (props) => {
                     onChange={handleChange}
                 />
                 <button className="submit-post" type="submit">
-                    {props.editId ? "Update Post" : "Create Post"}{" "}
+                    Create Post
                     {/* Przycisk do wysyłania formularza */}
                 </button>
             </form>
